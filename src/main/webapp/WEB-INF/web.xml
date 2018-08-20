@@ -3,8 +3,23 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-
+    <context-param>
+        <param-name>dbUrl</param-name>
+        <param-value>jdbc:mysql://localhost:3306/ImageService</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbUserName</param-name>
+        <param-value>stas</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbPassword</param-name>
+        <param-value>$tasRyabokon97</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.nau.connection.AppContextListener</listener-class>
+    </listener>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+
 </web-app>

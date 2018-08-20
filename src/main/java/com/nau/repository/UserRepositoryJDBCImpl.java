@@ -1,5 +1,6 @@
 package com.nau.repository;
 
+import com.nau.connection.DBConnectionManager;
 import com.nau.model.Image;
 import com.nau.model.User;
 
@@ -7,37 +8,15 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class UserRepositoryJDBCImpl implements UserRepository {
 
-    private static Connection connection;
-
-//    public static volatile UserRepositoryJDBCImpl instance;
-//
-//    private UserRepositoryJDBCImpl() {
-//    }
-//
-//    public static UserRepositoryJDBCImpl getInstance() {
-//        UserRepositoryJDBCImpl localInstance = instance;
-//        if (localInstance == null) {
-//            synchronized (UserRepositoryJDBCImpl.class) {
-//                localInstance = instance;
-//                if (localInstance == null) {
-//                    instance = localInstance = new UserRepositoryJDBCImpl();
-//                }
-//            }
-//        }
-//        return localInstance;
-//    }
+    private Connection connection = DBConnectionManager.getConnection();
 
     @Override
     public void dropTableIfExist(String name) {
-        connection = getConnection();
         String sql = "DROP TABLE IF EXISTS " + name;
         Statement statement = null;
         try {
@@ -51,18 +30,11 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
     @Override
     public User getUserByLogin(String login) {
-        connection = getConnection();
         String sql = "SELECT id, login, password FROM ImageService.Users WHERE login = ?";
         User user = null;
         PreparedStatement statement = null;
@@ -92,11 +64,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
         }
 
@@ -105,7 +72,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public User saveUser(User user) {
-        connection = getConnection();
         String sql = "INSERT INTO ImageService.Users(login, password) VALUES(?, ?)";
         PreparedStatement statementUser = null;
         try {
@@ -123,19 +89,12 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 e.printStackTrace();
             }
 
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
         }
         return user;
     }
 
     @Override
     public List<Image> getAllImages() {
-        connection = getConnection();
         String sql = "SELECT id, url, data, userId FROM ImageService.Images";
         List<Image> list = null;
         Image image = null;
@@ -172,11 +131,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
         }
 
@@ -185,7 +139,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public Image getImageById(Integer id) {
-        connection = getConnection();
         String sql = "SELECT id, url, data, userId  FROM ImageService.Images WHERE id = ?";
         Image image = null;
         PreparedStatement statement = null;
@@ -218,11 +171,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
         }
 
@@ -231,7 +179,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public Image saveImage(Image image, Integer userId) {
-        connection = getConnection();
         String sql = "INSERT INTO ImageService.Images(url, data, userId) VALUES(?, ?, ?)";
         PreparedStatement statementUser = null;
         try {
@@ -250,13 +197,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            try {
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
         }
         return image;
     }
@@ -291,20 +231,4 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     }
 
-    public static Connection getConnection() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        String url = "jdbc:mysql://localhost:3306/ImageService";
-        String name = "stas";
-        String password = "$tasRyabokon97";
-        try {
-            return DriverManager.getConnection(url, name, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

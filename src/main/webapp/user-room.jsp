@@ -11,22 +11,18 @@
 <body>
 <% String login = (String) session.getAttribute("login");
 %>
-<h1>File Upload to Database Demo</h1>
-<form method="get" action="/images" >
+<h1>Welcome, <%=login%>
+</h1>
+<form method="get" action="/images">
     <input type="submit" value="Go to gallery">
+</form>
+<form method="get" action="<%= "/personal-images?login="+login%>">
+    <input type="submit" value="Go to personal gallery">
 </form>
 <form method="post" action="<%= "/uploadServlet?login="+login%>" enctype="multipart/form-data">
     <table border="0">
         <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="firstName" size="50"/></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="lastName" size="50"/></td>
-        </tr>
-        <tr>
-            <td>Portrait Photo:</td>
+            <td>Choose image to share:</td>
             <td><input type="file" name="photo" size="50"/></td>
         </tr>
         <tr>
