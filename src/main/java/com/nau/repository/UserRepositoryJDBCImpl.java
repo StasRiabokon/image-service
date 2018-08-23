@@ -208,7 +208,46 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public List<Image> getImagesByUser(Integer userId) {
-        return null;
+        String sql = "SELECT id, url, data, userId FROM ImageService.Images WHERE userId=?";
+        List<Image> list = null;
+        Image image = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            resultSet = statement.executeQuery();
+            list = new ArrayList<>();
+
+            while (resultSet.next()) {
+                image = new Image();
+                image.setId(resultSet.getInt("id"));
+                image.setData(resultSet.getBytes("data"));
+
+                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+
+                image.setUserId(resultSet.getInt("userId"));
+                list.add(image);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return list;
     }
 
     @Override
@@ -218,7 +257,43 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public Image getImageByUser(Integer userId, Integer imageId) {
-        return null;
+        String sql = "SELECT id, url, data, userId  FROM ImageService.Images WHERE id = ? AND userId = ?";
+        Image image = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, imageId);
+            statement.setInt(2, userId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                image = new Image();
+                image.setId(resultSet.getInt("id"));
+                image.setData(resultSet.getBytes("data"));
+
+                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+
+                image.setUserId(resultSet.getInt("userId"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return image;
     }
 
     @Override

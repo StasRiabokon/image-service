@@ -25,10 +25,11 @@
 
 <div class="w3-content" style="max-width:1200px">
     <%
+        String login = (String) session.getAttribute("login");
         List<Integer> imageIds = (List<Integer>) session.getAttribute("personal_count");
         for (int i = 0; i < imageIds.size(); i++) {
     %>
-    <img class="mySlides" src="personal-images?id=<%=imageIds.get(i)%>" style="width:100%">
+    <img class="mySlides" src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>" style="width:100%">
     <% }%>
 
     <div class="w3-row-padding w3-section">
@@ -36,7 +37,8 @@
             for (int i = 0; i < imageIds.size(); i++) {
         %>
         <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="personal-images?id=<%=imageIds.get(i)%>" style="width:350px;height:200px"
+            <img class="demo w3-opacity w3-hover-opacity-off" src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>"
+                 style="width:350px;height:200px"
                  onclick="currentDiv(<%=i+1%>)">
         </div>
         <% }%>

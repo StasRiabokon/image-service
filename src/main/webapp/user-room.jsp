@@ -16,7 +16,7 @@
 <form method="get" action="/images">
     <input type="submit" value="Go to gallery">
 </form>
-<form method="get" action="<%= "/personal-images?login="+login%>">
+<form method="post" action="<%= "/personal-images?login="+login%>">
     <input type="submit" value="Go to personal gallery">
 </form>
 <form method="post" action="<%= "/uploadServlet?login="+login%>" enctype="multipart/form-data">

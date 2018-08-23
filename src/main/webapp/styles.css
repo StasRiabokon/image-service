@@ -97,3 +97,43 @@ input[type=submit]:hover {
 label{
     font-weight: bold;
 }
+
+.mySlides {
+    display: none
+}
+
+.demo {
+    cursor: pointer
+}
+
+.download {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.download img {
+    width: 100%;
+    height: auto;
+}
+
+.download .btn {
+    text-decoration: none;
+    position: absolute;
+    top: 12%;
+    left:15%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.download .btn:hover {
+    background-color: black;
+}

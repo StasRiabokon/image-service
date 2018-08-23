@@ -15,6 +15,38 @@
     .demo {
         cursor: pointer
     }
+
+    .download {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .download img {
+        width: 100%;
+        height: auto;
+    }
+
+    .download .btn {
+        text-decoration: none;
+        position: absolute;
+        top: 12%;
+        left:15%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #555;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .download .btn:hover {
+        background-color: black;
+    }
 </style>
 <body>
 
@@ -35,10 +67,17 @@
         <%
             for (int i = 0; i < imageIds.size(); i++) {
         %>
+
         <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="images?id=<%=imageIds.get(i)%>" style="width:350px;height:200px"
-                 onclick="currentDiv(<%=i+1%>)">
+            <div class="download">
+                    <img class="demo w3-opacity w3-hover-opacity-off" src="images?id=<%=imageIds.get(i)%>"
+                         style="width:350px;height:200px"
+                         onclick="currentDiv(<%=i+1%>)">
+                    <a class="btn" href="images?id=<%=imageIds.get(i)%>" download="image<%=imageIds.get(i)%>">Download</a>
+
+            </div>
         </div>
+
         <% }%>
     </div>
 </div>
