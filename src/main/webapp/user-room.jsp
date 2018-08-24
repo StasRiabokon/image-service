@@ -32,4 +32,15 @@
         </tr>
     </table>
 </form>
+<% Boolean deleted = (Boolean) session.getAttribute("deleted");
+    Boolean added = (Boolean) session.getAttribute("added");
+    if (deleted != null && deleted) {%>
+<h3>Image was deleted</h3>
+<%
+    }
+    if (deleted != null && deleted) {%>
+<h3>Image was added</h3>
+<%}%>
+<h3></h3>
+
 </body>

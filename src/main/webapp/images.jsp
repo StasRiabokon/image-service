@@ -53,6 +53,7 @@
 <div class="w3-container">
     <h2>Gallery</h2>
     <p>This gallery contains images of each user</p>
+    <a href="/user-room.jsp">Back</a>
 </div>
 
 <div class="w3-content" style="max-width:1200px">
@@ -60,7 +61,7 @@
         List<Integer> imageIds = (List<Integer>) session.getAttribute("count");
         for (int i = 0; i < imageIds.size(); i++) {
     %>
-    <img class="mySlides" src="images?id=<%=imageIds.get(i)%>" style="width:100%">
+    <img class="mySlides" src="images?id=<%=imageIds.get(i)%>" style="margin:auto;width:100%; max-width:600px;">
     <% }%>
 
     <div class="w3-row-padding w3-section">

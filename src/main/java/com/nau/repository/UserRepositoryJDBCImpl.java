@@ -303,6 +303,24 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public void deleteImageByUser(Integer userId, Integer imageId) {
+        String sql = "DELETE FROM ImageService.Images WHERE id = ? AND userId = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, imageId);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
 

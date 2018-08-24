@@ -44,7 +44,6 @@ public class PersonalImagesServlet extends HttpServlet {
             int userId = service.getUserByLogin(login).getId();
             HttpSession session = req.getSession(true);
             session.setAttribute("login", login);
-
             session.setAttribute("personal_count", service.getImagesByUser(userId).stream().map(Image::getId).collect(toList()));
             resp.sendRedirect("personal-images.jsp");
         }

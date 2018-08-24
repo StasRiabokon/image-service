@@ -15,12 +15,62 @@
     .demo {
         cursor: pointer
     }
+
+    .download {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .download img {
+        width: 100%;
+        height: auto;
+    }
+
+    .download .btn {
+        text-decoration: none;
+        position: absolute;
+        top: 12%;
+        left: 15%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #555;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .download .del {
+        text-decoration: none;
+        position: absolute;
+        top: 12%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #555;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .download .btn:hover {
+        background-color: black;
+    }
 </style>
 <body>
 
 <div class="w3-container">
     <h2>Gallery</h2>
     <p>This gallery contains images of each user</p>
+    <a href="/user-room.jsp">Back</a>
 </div>
 
 <div class="w3-content" style="max-width:1200px">
@@ -29,7 +79,8 @@
         List<Integer> imageIds = (List<Integer>) session.getAttribute("personal_count");
         for (int i = 0; i < imageIds.size(); i++) {
     %>
-    <img class="mySlides" src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>" style="width:100%">
+    <img class="mySlides" src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>"
+         style="margin:auto;width:100%; max-width:600px;">
     <% }%>
 
     <div class="w3-row-padding w3-section">
@@ -37,9 +88,16 @@
             for (int i = 0; i < imageIds.size(); i++) {
         %>
         <div class="w3-col s4">
-            <img class="demo w3-opacity w3-hover-opacity-off" src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>"
-                 style="width:350px;height:200px"
-                 onclick="currentDiv(<%=i+1%>)">
+            <div class="download">
+                <img class="demo w3-opacity w3-hover-opacity-off"
+                     src="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>"
+                     style="width:350px;height:200px"
+                     onclick="currentDiv(<%=i+1%>)">
+                <a class="btn" href="personal-images?id=<%=imageIds.get(i)%>&login=<%=login%>"
+                   download="image<%=imageIds.get(i)%>">Download</a>
+                <a class="del" href="delete-image?id=<%=imageIds.get(i)%>&login=<%=login%>">Delete</a>
+
+            </div>
         </div>
         <% }%>
     </div>
