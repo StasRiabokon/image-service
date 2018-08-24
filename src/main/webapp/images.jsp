@@ -2,7 +2,6 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
-
 <html>
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +30,7 @@
         text-decoration: none;
         position: absolute;
         top: 12%;
-        left:15%;
+        left: 15%;
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         background-color: #555;
@@ -54,6 +53,10 @@
     <h2>Gallery</h2>
     <p>This gallery contains images of each user</p>
     <a href="/user-room.jsp">Back</a>
+
+    <form action="<c:url value="/download-zip" />" method="post">
+        <input type="submit" name="bDownload" value="Download Zip file"/>
+    </form>
 </div>
 
 <div class="w3-content" style="max-width:1200px">
@@ -71,10 +74,10 @@
 
         <div class="w3-col s4">
             <div class="download">
-                    <img class="demo w3-opacity w3-hover-opacity-off" src="images?id=<%=imageIds.get(i)%>"
-                         style="width:350px;height:200px"
-                         onclick="currentDiv(<%=i+1%>)">
-                    <a class="btn" href="images?id=<%=imageIds.get(i)%>" download="image<%=imageIds.get(i)%>">Download</a>
+                <img class="demo w3-opacity w3-hover-opacity-off" src="images?id=<%=imageIds.get(i)%>"
+                     style="width:350px;height:200px"
+                     onclick="currentDiv(<%=i+1%>)">
+                <a class="btn" href="images?id=<%=imageIds.get(i)%>" download="image<%=imageIds.get(i)%>">Download</a>
 
             </div>
         </div>
@@ -119,48 +122,3 @@
 
 </body>
 </html>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--<title></title>--%>
-<%--<style>--%>
-<%--div.gallery {--%>
-<%--margin: 5px;--%>
-<%--border: 1px solid #ccc;--%>
-<%--float: left;--%>
-<%--width: 180px;--%>
-<%--}--%>
-
-<%--div.gallery:hover {--%>
-<%--border: 1px solid #777;--%>
-<%--}--%>
-
-<%--div.gallery img {--%>
-<%--width: 100%;--%>
-<%--height: auto;--%>
-<%--}--%>
-
-<%--div.desc {--%>
-<%--padding: 15px;--%>
-<%--text-align: center;--%>
-<%--}--%>
-<%--</style>--%>
-<%--</head>--%>
-<%--<body bgcolor="white">--%>
-<%--<%--%>
-<%--List<Integer> imageIds = (List<Integer>) session.getAttribute("count");--%>
-<%--for (int i = 0; i < imageIds.size(); i++) {%>--%>
-<%--<div class="gallery">--%>
-<%--<a target="_blank" href="images?id=<%=imageIds.get(i)%>">--%>
-<%--<img src="images?id=<%=imageIds.get(i)%>" width="600" height="400">--%>
-<%--</a>--%>
-<%--<div class="desc">Add a description of the image here</div>--%>
-<%--</div>--%>
-<%--<%--%>
-<%--}--%>
-
-<%--%>--%>
-
-
-<%--</body>--%>
-<%--</html>--%>
