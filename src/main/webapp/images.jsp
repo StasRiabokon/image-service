@@ -3,60 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <html>
-<title>W3.CSS</title>
+<title>Gallery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="mystyles.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-    .mySlides {
-        display: none
-    }
-
-    .demo {
-        cursor: pointer
-    }
-
-    .download {
-        position: relative;
-        width: 100%;
-        max-width: 400px;
-    }
-
-    .download img {
-        width: 100%;
-        height: auto;
-    }
-
-    .download .btn {
-        text-decoration: none;
-        position: absolute;
-        top: 12%;
-        left: 15%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        background-color: #555;
-        color: white;
-        font-size: 16px;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .download .btn:hover {
-        background-color: black;
-    }
-</style>
 <body>
 
 <div class="w3-container">
     <h2>Gallery</h2>
     <p>This gallery contains images of each user</p>
-    <a href="/user-room.jsp">Back</a>
+    <a class="back"  href="/user-room.jsp">Back</a>
 
-    <form action="<c:url value="/download-zip" />" method="post">
-        <input type="submit" name="bDownload" value="Download Zip file"/>
-    </form>
 </div>
 
 <div class="w3-content" style="max-width:1200px">
@@ -87,38 +44,7 @@
 </div>
 
 
-<script>
-    var slideIndex = 1;
-    showDivs(slideIndex);
-
-    function plusDivs(n) {
-        showDivs(slideIndex += n);
-    }
-
-    function currentDiv(n) {
-        showDivs(slideIndex = n);
-    }
-
-    function showDivs(n) {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        if (n > x.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = x.length
-        }
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-        }
-        x[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " w3-opacity-off";
-    }
-</script>
+<script src="myscript.js"></script>
 
 </body>
 </html>

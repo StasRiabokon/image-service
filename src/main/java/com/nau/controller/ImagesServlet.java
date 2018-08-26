@@ -27,10 +27,13 @@ public class ImagesServlet extends HttpServlet {
             byte[] content = service.getImageById(id).getData();
             resp.setContentLength(content.length);
             resp.getOutputStream().write(content);
-        } else {
-            HttpSession session = req.getSession(true);
-            session.setAttribute("count", service.getAllImages().stream().map(Image::getId).collect(toList()));
-            resp.sendRedirect("images.jsp");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(true);
+        session.setAttribute("count", service.getAllImages().stream().map(Image::getId).collect(toList()));
+        resp.sendRedirect("images.jsp");
     }
 }

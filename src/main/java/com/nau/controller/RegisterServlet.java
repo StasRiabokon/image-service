@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "register", urlPatterns = {"/register"})
-@SuppressWarnings("Duplicates")
 public class RegisterServlet extends HttpServlet {
 
     private static UserServiceImpl service = UserServiceImpl.getInstance();
@@ -22,6 +21,9 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         HttpSession session = req.getSession(true);
+
+        System.out.println(login);
+        System.out.println(password);
 
         User user = new User();
         user.setLogin(login);

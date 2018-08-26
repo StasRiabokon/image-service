@@ -22,7 +22,7 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
 }
 
 input[type=submit] {
-    background-color: #4CAF50;
+    background-color: #4c78af;
     color: white;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -36,68 +36,10 @@ input[type=submit]:hover {
     opacity:1;
 }
 
-.radio_container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.radio_container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-}
-
-.radio_container:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-.radio_container input:checked ~ .checkmark {
-    background-color: #2196F3;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.radio_container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.radio_container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
 
 label{
     font-weight: bold;
 }
-
 .mySlides {
     display: none
 }
@@ -121,7 +63,7 @@ label{
     text-decoration: none;
     position: absolute;
     top: 12%;
-    left:15%;
+    left: 15%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: #555;
@@ -134,6 +76,59 @@ label{
     text-align: center;
 }
 
+.download .del {
+    text-decoration: none;
+    position: absolute;
+    top: 12%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.back {
+    text-decoration: none;
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.zip {
+    margin-left: 20%;
+    text-decoration: none;
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .download .btn:hover {
     background-color: black;
+}
+
+.zip:hover, .back:hover, .del:hover {
+    background-color: black;
+}
+
+.inline {
+    display: inline-block;
+    vertical-align: top;
+    margin: 25px 0 0 10%;
+
 }

@@ -29,10 +29,12 @@ public class DownloadZipServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = "/home/stas/NetBeansProjects/imageservice/src/main/resources/data";
+        String login = request.getParameter("login");
+        System.out.println(login);
+        createImages(path, login);
+
         File directory = new File(path);
         String[] files = directory.list();
-
-        createImages(path);
 
         //check if directories have files
         if (files != null && files.length > 0) {
@@ -52,18 +54,23 @@ public class DownloadZipServlet extends HttpServlet {
         deleteImages(path);
     }
 
-    private void createImages(String path) {
+    private static void createImages(String path, String login) {
 
-        List<Image> images = service.getAllImages();
+        List<Image> images = service.getImagesByUser(service.getUserByLogin(login).getId());
 
         for (int i = 0; i < images.size(); i++) {
             Thread th = new Thread(new CreateImageInThread(images.get(i), path));
             th.start();
+            try {
+                th.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void deleteImages(String path) {
+    private static void deleteImages(String path) {
         try {
             FileUtils.cleanDirectory(new File(path + File.separator));
         } catch (IOException e) {
@@ -71,7 +78,7 @@ public class DownloadZipServlet extends HttpServlet {
         }
     }
 
-    private byte[] zipFiles(File directory, String[] files) throws IOException {
+    private static byte[] zipFiles(File directory, String[] files) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
         byte bytes[] = new byte[4096];

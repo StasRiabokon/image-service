@@ -40,8 +40,6 @@ public class UploadServlet extends HttpServlet {
             image.setData(targetArray);
             image.setUserId(userId);
             image.setUrl(url);
-            HttpSession session = request.getSession(true);
-            session.setAttribute("addedли?", true);
 
             service.saveImage(image, userId);
             response.sendRedirect("user-room.jsp");

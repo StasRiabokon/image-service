@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("Duplicates")
 public class UserRepositoryJDBCImpl implements UserRepository {
 
     private Connection connection = DBConnectionManager.getConnection();
@@ -111,7 +111,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
 
-                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+                image.setUrl("some url");
 
                 image.setUserId(resultSet.getInt("userId"));
                 list.add(image);
@@ -153,7 +153,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
 
-                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+                image.setUrl("some url");
 
                 image.setUserId(resultSet.getInt("userId"));
             }
@@ -224,7 +224,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
 
-                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+                image.setUrl("some url");
 
                 image.setUserId(resultSet.getInt("userId"));
                 list.add(image);
@@ -272,7 +272,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
 
-                image.setUrl("data:image/png;base64," + resultSet.getBytes("data"));
+                image.setUrl("some url");
 
                 image.setUserId(resultSet.getInt("userId"));
             }
