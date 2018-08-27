@@ -35,10 +35,11 @@
             <input class="zip" type="submit" name="bDownload" value="Download Zip file"/>
         </form>
 
-        <form action="<c:url value="/" />" method="post">
-            <input type="hidden" name="login" value="<%=login%>"/>
-            <input class="zip" type="submit" name="bDownload" value="Send zip to email"/>
-        </form>
+        <%--<form action="<c:url value="/" />" method="post">--%>
+            <%--<input type="hidden" name="login" value="<%=login%>"/>--%>
+            <%--<input class="zip" type="submit" name="bDownload" value="Send zip to email"/>--%>
+        <%--</form>--%>
+        <a class="zip" href="/email.jsp">Send zip to email</a>
     </div>
     <div class="w3-row-padding w3-section">
         <%
