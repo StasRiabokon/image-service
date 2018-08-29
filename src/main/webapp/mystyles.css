@@ -15,11 +15,12 @@ input[type=text], input[type=number], input[type=password] {
     border: none;
     background: #f1f1f1;
 }
-
-input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
+ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
+
+
 
 input[type=submit] {
     background-color: #4c78af;
@@ -132,3 +133,4 @@ label{
     margin: 25px 0 0 10%;
 
 }
+

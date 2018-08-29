@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import static com.nau.utils.ZipUtility.zipFiles;
+
 @WebServlet("/download-zip")
 public class DownloadZipServlet extends HttpServlet {
 
@@ -38,33 +40,5 @@ public class DownloadZipServlet extends HttpServlet {
 
     }
 
-    private static byte[] zipFiles(String login) throws IOException {
 
-        List<Image> images = service.getImagesByUser(service.getUserByLogin(login).getId());
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ZipOutputStream zos = new ZipOutputStream(baos);
-        byte bytes[] = new byte[4096];
-
-        for (Image image : images) {
-            try (ByteArrayInputStream bais = new ByteArrayInputStream(image.getData());
-
-                 BufferedInputStream bis = new BufferedInputStream(bais)) {
-
-                zos.putNextEntry(new ZipEntry("image" + image.hashCode()));
-
-                int bytesRead;
-                while ((bytesRead = bis.read(bytes)) != -1) {
-                    zos.write(bytes, 0, bytesRead);
-                }
-                zos.closeEntry();
-            }
-        }
-        zos.flush();
-        baos.flush();
-        zos.close();
-        baos.close();
-
-        return baos.toByteArray();
-    }
 }

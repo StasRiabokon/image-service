@@ -1,14 +1,14 @@
-package com.nau.email;
+package com.nau.utils;
 
-import java.util.Date;
-import java.util.Properties;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,10 +21,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
 public class EmailUtility {
     public static void sendEmailWithAttachment(String host, String port,
                                                final String userName, final String password, String toAddress,
-                                               String subject, String message, List<File> attachedFiles)
+                                               String subject, String message, byte[] attachedFile)
             throws AddressException, MessagingException {
         // sets SMTP server properties
         Properties properties = new Properties();
@@ -47,7 +49,7 @@ public class EmailUtility {
         Message msg = new MimeMessage(session);
 
         msg.setFrom(new InternetAddress(userName));
-        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
+        InternetAddress[] toAddresses = {new InternetAddress(toAddress)};
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
@@ -61,18 +63,22 @@ public class EmailUtility {
         multipart.addBodyPart(messageBodyPart);
 
         // adds attachments
-        if (attachedFiles != null && attachedFiles.size() > 0) {
-            for (File aFile : attachedFiles) {
-                MimeBodyPart attachPart = new MimeBodyPart();
+        if (attachedFile != null) {
 
-                try {
-                    attachPart.attachFile(aFile);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+            MimeBodyPart attachmentPart = new MimeBodyPart();
 
-                multipart.addBodyPart(attachPart);
+            try {
+                DataSource ds = new ByteArrayDataSource(attachedFile, "application/octet-stream");
+                attachmentPart = new MimeBodyPart();
+                attachmentPart.setDataHandler(new DataHandler(ds));
             }
+            catch (Exception e) {
+               e.printStackTrace();
+            }
+
+            attachmentPart.setFileName("data.zip");
+            multipart.addBodyPart(attachmentPart);
+
         }
 
         // sets the multi-part as e-mail's content
