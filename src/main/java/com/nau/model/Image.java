@@ -11,8 +11,6 @@ public class Image {
 
     private int id;
 
-    private String url;
-
     private byte[] data;
 
     private int userId;

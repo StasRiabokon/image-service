@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserService {
 
+    void initDatabase();
+
     void dropTableIfExist(String name);
 
     List<User> getAllUsers();
@@ -15,8 +17,6 @@ public interface UserService {
 
     List<Image> getImagesByUser(Integer userId);
 
-    User getUserById(Integer userId);
-
     User getUserByLogin(String login);
 
     Image getImageByUser(Integer userId, Integer imageId);
@@ -24,8 +24,6 @@ public interface UserService {
     User saveUser(User user);
 
     Image saveImage(Image image, Integer userId);
-
-    void deleteUser(Integer userId);
 
     void deleteImageByUser(Integer userId, Integer imageId);
 

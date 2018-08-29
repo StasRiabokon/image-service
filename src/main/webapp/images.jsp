@@ -5,7 +5,7 @@
 <html>
 <title>Gallery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="mystyles.css">
+<link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 
@@ -21,7 +21,7 @@
         List<Integer> imageIds = (List<Integer>) session.getAttribute("count");
         for (int i = 0; i < imageIds.size(); i++) {
     %>
-    <img class="mySlides" src="images?id=<%=imageIds.get(i)%>" style="margin:auto;width:100%; max-width:600px;">
+    <img class="mySlides" src="images?id=<%=imageIds.get(i)%>" style="margin:50px auto;width:100%; max-width:600px;">
     <% }%>
 
     <div class="w3-row-padding w3-section">
@@ -44,7 +44,7 @@
 </div>
 
 
-<script src="myscript.js"></script>
+<script src="js/scripts.js"></script>
 
 </body>
 </html>

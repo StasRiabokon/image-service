@@ -14,7 +14,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@WebServlet("/personal-images")
+@WebServlet("/personal")
 public class PersonalImagesServlet extends HttpServlet {
 
     private static UserServiceImpl service = UserServiceImpl.getInstance();

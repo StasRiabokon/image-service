@@ -9,8 +9,6 @@ import java.util.List;
 
 public class UserServiceImpl implements UserRepository {
 
-
-    //    private UserRepository repository = UserRepositoryJDBCImpl.getInstance();
     private UserRepository repository = new UserRepositoryJDBCImpl();
 
     public static volatile UserServiceImpl instance;
@@ -29,6 +27,11 @@ public class UserServiceImpl implements UserRepository {
             }
         }
         return localInstance;
+    }
+
+    @Override
+    public void initDatabase() {
+        repository.initDatabase();
     }
 
     @Override
@@ -61,10 +64,6 @@ public class UserServiceImpl implements UserRepository {
         return repository.getImagesByUser(userId);
     }
 
-    @Override
-    public User getUserById(Integer userId) {
-        return repository.getUserById(userId);
-    }
 
     @Override
     public User getUserByLogin(String login) {
@@ -76,10 +75,6 @@ public class UserServiceImpl implements UserRepository {
         return repository.getImageByUser(userId, imageId);
     }
 
-    @Override
-    public void deleteUser(Integer userId) {
-        repository.deleteUser(userId);
-    }
 
     @Override
     public void deleteImageByUser(Integer userId, Integer imageId) {

@@ -14,7 +14,7 @@ import java.io.IOException;
 import static java.util.stream.Collectors.toList;
 
 @WebServlet("/images")
-public class ImagesServlet extends HttpServlet {
+public class AllImagesServlet extends HttpServlet {
 
     private static UserServiceImpl service = UserServiceImpl.getInstance();
 

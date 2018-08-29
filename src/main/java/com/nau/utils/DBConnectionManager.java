@@ -1,4 +1,4 @@
-package com.nau.connection;
+package com.nau.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,7 @@ public class DBConnectionManager {
     private static Connection con;
 
     public static void createConnection(String dbUrl, String dbusername, String dbPassword) {
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(dbUrl, dbusername, dbPassword);
@@ -20,6 +21,7 @@ public class DBConnectionManager {
     public static Connection getConnection() {
         return con;
     }
+
 
     public static void closeConnection() {
         if (con != null) {

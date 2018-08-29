@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="mystyles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div class="container" style="width: 30%;">
@@ -22,6 +22,19 @@
     </form>
 </div>
 
-<script src="myscript.js"></script>
+<script src="js/scripts.js"></script>
+
+<%
+    Boolean exists = (Boolean) session.getAttribute("exists");
+    if (exists!=null && exists) {
+%>
+<script>
+    alert("User already exists");
+</script>
+
+<%
+    }
+    session.setAttribute("exists", false);
+%>
 </body>
 </html>

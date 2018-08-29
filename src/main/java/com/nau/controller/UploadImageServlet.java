@@ -11,9 +11,9 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-@WebServlet("/uploadServlet")
+@WebServlet("/upload")
 @MultipartConfig(maxFileSize = 16177215)
-public class UploadServlet extends HttpServlet {
+public class UploadImageServlet extends HttpServlet {
 
     private static UserServiceImpl service = UserServiceImpl.getInstance();
 
@@ -21,11 +21,11 @@ public class UploadServlet extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
 
         String login = request.getParameter("login");
-
+        HttpSession session = request.getSession(true);
         int userId = service.getUserByLogin(login).getId();
 
-        InputStream inputStream = null;
-        Image image = null;
+        InputStream inputStream;
+        Image image;
 
         Part filePart = request.getPart("photo");
         if (filePart != null) {
@@ -35,13 +35,12 @@ public class UploadServlet extends HttpServlet {
 
             byte[] targetArray = new byte[inputStream.available()];
             inputStream.read(targetArray);
-            String url = "";
 
             image.setData(targetArray);
             image.setUserId(userId);
-            image.setUrl(url);
 
             service.saveImage(image, userId);
+            session.setAttribute("added", true);
             response.sendRedirect("user-room.jsp");
         }else {
             response.sendRedirect("error.jsp");

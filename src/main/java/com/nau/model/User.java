@@ -16,13 +16,4 @@ public class User {
 
     private List<Image> images;
 
-    public void addImage(Image image) {
-        images.add(image);
-    }
-
-    public Stream<Image> stream() {
-        return images.stream();
-    }
-
-
 }

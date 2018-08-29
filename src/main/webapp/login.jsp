@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="mystyles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -16,5 +16,19 @@
         <a href="/register.jsp">Register</a>
     </form>
 </div>
+<%
+    Boolean wrong = (Boolean) session.getAttribute("wrong");
+    if (wrong!=null && wrong) {
+%>
+<script>
+    alert("Wrong login or password");
+</script>
+
+<%
+    }
+    session.setAttribute("wrong", false);
+%>
+
+
 </body>
 </html>

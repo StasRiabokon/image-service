@@ -28,13 +28,14 @@ public class LoginServlet extends HttpServlet {
 
         User checkUser = service.getUserByLogin(login);
 
-        if (checkUser != null) {//TODO: alert wrong password or username
+        if (checkUser != null) {
             if (checkUser.getPassword().equals(user.getPassword())) {
                 session.setAttribute("login", login);
                 resp.sendRedirect("user-room.jsp");
                 return;
             }
         }
+        session.setAttribute("wrong", true);
         resp.sendRedirect("login.jsp");
 
 

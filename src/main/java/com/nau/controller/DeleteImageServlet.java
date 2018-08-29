@@ -1,6 +1,5 @@
 package com.nau.controller;
 
-import com.nau.service.UserService;
 import com.nau.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/delete-image")
+@WebServlet("/delete")
 public class DeleteImageServlet extends HttpServlet {
 
     private static UserServiceImpl service = UserServiceImpl.getInstance();

@@ -20,8 +20,6 @@ import static com.nau.utils.ZipUtility.zipFiles;
 @WebServlet("/download-zip")
 public class DownloadZipServlet extends HttpServlet {
 
-    private static UserServiceImpl service = UserServiceImpl.getInstance();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

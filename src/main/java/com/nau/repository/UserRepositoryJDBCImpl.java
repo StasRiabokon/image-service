@@ -1,6 +1,6 @@
 package com.nau.repository;
 
-import com.nau.connection.DBConnectionManager;
+import com.nau.utils.DBConnectionManager;
 import com.nau.model.Image;
 import com.nau.model.User;
 
@@ -14,6 +14,46 @@ import java.util.List;
 public class UserRepositoryJDBCImpl implements UserRepository {
 
     private Connection connection = DBConnectionManager.getConnection();
+
+    @Override
+    public void initDatabase() {
+        String sqlUsers = "create table  if not exists Users" +
+                "(" +
+                "  id       int auto_increment" +
+                "    primary key," +
+                "  login    varchar(128) not null," +
+                "  password varchar(128) not null," +
+                "  constraint Users_login_uindex" +
+                "  unique (login)" +
+                ");";
+
+        String sqlImages = "create table if not exists Images" +
+                "(" +
+                "  id     int auto_increment" +
+                "    primary key," +
+                "  data   mediumblob not null," +
+                "  userId int        not null," +
+                "  constraint userId" +
+                "  foreign key (userId) references Users (id)" +
+                "); ";
+
+
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlUsers);
+            statement.executeUpdate(sqlImages);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void dropTableIfExist(String name) {
@@ -95,7 +135,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public List<Image> getAllImages() {
-        String sql = "SELECT id, url, data, userId FROM ImageService.Images";
+        String sql = "SELECT id, data, userId FROM ImageService.Images";
         List<Image> list = null;
         Image image = null;
         PreparedStatement statement = null;
@@ -110,9 +150,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image = new Image();
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
-
-                image.setUrl("some url");
-
                 image.setUserId(resultSet.getInt("userId"));
                 list.add(image);
 
@@ -139,7 +176,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public Image getImageById(Integer id) {
-        String sql = "SELECT id, url, data, userId  FROM ImageService.Images WHERE id = ?";
+        String sql = "SELECT id, data, userId  FROM ImageService.Images WHERE id = ?";
         Image image = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -152,9 +189,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image = new Image();
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
-
-                image.setUrl("some url");
-
                 image.setUserId(resultSet.getInt("userId"));
             }
 
@@ -179,14 +213,13 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public Image saveImage(Image image, Integer userId) {
-        String sql = "INSERT INTO ImageService.Images(url, data, userId) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO ImageService.Images(data, userId) VALUES(?, ?)";
         PreparedStatement statementUser = null;
         try {
             InputStream inputStream = new ByteArrayInputStream(image.getData());
             statementUser = connection.prepareStatement(sql);
-            statementUser.setString(1, image.getUrl());
-            statementUser.setBlob(2, inputStream);
-            statementUser.setInt(3, image.getUserId());
+            statementUser.setBlob(1, inputStream);
+            statementUser.setInt(2, image.getUserId());
             statementUser.executeUpdate();
 
         } catch (SQLException e) {
@@ -208,7 +241,7 @@ public class UserRepositoryJDBCImpl implements UserRepository {
 
     @Override
     public List<Image> getImagesByUser(Integer userId) {
-        String sql = "SELECT id, url, data, userId FROM ImageService.Images WHERE userId=?";
+        String sql = "SELECT id, data, userId FROM ImageService.Images WHERE userId=?";
         List<Image> list = null;
         Image image = null;
         PreparedStatement statement = null;
@@ -223,12 +256,8 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image = new Image();
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
-
-                image.setUrl("some url");
-
                 image.setUserId(resultSet.getInt("userId"));
                 list.add(image);
-
             }
 
         } catch (SQLException e) {
@@ -251,13 +280,8 @@ public class UserRepositoryJDBCImpl implements UserRepository {
     }
 
     @Override
-    public User getUserById(Integer userId) {
-        return null;
-    }
-
-    @Override
     public Image getImageByUser(Integer userId, Integer imageId) {
-        String sql = "SELECT id, url, data, userId  FROM ImageService.Images WHERE id = ? AND userId = ?";
+        String sql = "SELECT id, data, userId  FROM ImageService.Images WHERE id = ? AND userId = ?";
         Image image = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -271,9 +295,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
                 image = new Image();
                 image.setId(resultSet.getInt("id"));
                 image.setData(resultSet.getBytes("data"));
-
-                image.setUrl("some url");
-
                 image.setUserId(resultSet.getInt("userId"));
             }
 
@@ -294,11 +315,6 @@ public class UserRepositoryJDBCImpl implements UserRepository {
         }
 
         return image;
-    }
-
-    @Override
-    public void deleteUser(Integer userId) {
-
     }
 
     @Override

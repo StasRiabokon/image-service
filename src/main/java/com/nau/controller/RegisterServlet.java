@@ -22,21 +22,19 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("password");
         HttpSession session = req.getSession(true);
 
-        System.out.println(login);
-        System.out.println(password);
-
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
 
         User checkUser = service.getUserByLogin(login);
 
-        if (checkUser == null) {//TODO: alert that user already exists
+        if (checkUser == null) {
             service.saveUser(user);
             session.setAttribute("login", login);
             resp.sendRedirect("user-room.jsp");
             return;
         }
+        session.setAttribute("exists", true);
         resp.sendRedirect("register.jsp");
 
 
